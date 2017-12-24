@@ -11,4 +11,6 @@ public class KafkaProperties {
     public static final String TOPIC = "hello_topic";
 
     public static final String BROKER_LIST = "120.78.72.189:9092";
+
+    public static final String GROUP_ID = "test-group1";
 }
