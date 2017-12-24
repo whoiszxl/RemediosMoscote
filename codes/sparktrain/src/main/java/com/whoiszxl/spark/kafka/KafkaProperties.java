@@ -6,9 +6,9 @@ package com.whoiszxl.spark.kafka;
  */
 public class KafkaProperties {
 
-    public static final String ZK = "whoiszxl.com:2181";
+    public static final String ZK = "120.78.72.189:2181";
 
     public static final String TOPIC = "hello_topic";
 
-    public static final String BROKER_LIST = "whoiszxl.com:9092";
+    public static final String BROKER_LIST = "120.78.72.189:9092";
 }
