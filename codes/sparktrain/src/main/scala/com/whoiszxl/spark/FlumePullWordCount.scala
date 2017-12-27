@@ -19,7 +19,8 @@ object FlumePullWordCount {
 
     val Array(hostname, port) = args
 
-    val sparkConf = new SparkConf()//.setMaster("local[2]").setAppName("FlumePushWordCount")
+    val sparkConf = new SparkConf()
+    //.setMaster("local[2]").setAppName("FlumePushWordCount")
     val ssc = new StreamingContext(sparkConf, Seconds(4))
 
     val flumeStream = FlumeUtils.createPollingStream(ssc, hostname, port.toInt)

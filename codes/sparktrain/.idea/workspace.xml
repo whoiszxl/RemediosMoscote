@@ -48,8 +48,8 @@
       <file leaf-file-name="FlumePullWordCount.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/whoiszxl/spark/FlumePullWordCount.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="9" selection-end-column="4" />
+            <state relative-caret-position="493">
+              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -108,7 +108,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="433" />
     <option name="y" value="160" />
     <option name="width" value="1382" />
@@ -776,12 +776,12 @@
       <workItem from="1514293661407" duration="661000" />
       <workItem from="1514294387536" duration="2901000" />
       <workItem from="1514302164933" duration="2728000" />
-      <workItem from="1514366635694" duration="855000" />
+      <workItem from="1514366635694" duration="2012000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36211000" />
+    <option name="totallyTimeSpent" value="37368000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -793,7 +793,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="433" y="160" width="1382" height="744" extended-state="0" />
+    <frame x="433" y="160" width="1382" height="744" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1147,8 +1147,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/whoiszxl/spark/FlumePullWordCount.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="9" selection-end-column="4" />
+        <state relative-caret-position="493">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
         </state>
       </provider>
