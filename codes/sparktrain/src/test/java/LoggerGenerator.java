@@ -13,7 +13,7 @@ public class LoggerGenerator {
         int index = 0;
         while (true) {
             Thread.sleep(1000);
-            logger.info("current number is:" + index++);
+            logger.info("number is:" + index++);
         }
     }
 

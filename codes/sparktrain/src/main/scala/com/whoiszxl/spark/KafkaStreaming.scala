@@ -5,29 +5,27 @@ import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 /**
-  * Spark Streaming 对接Kafka Direct
+  * Spark Streaming 对接Kafka
   */
-object KafkaDirectWordCount {
+object KafkaStreaming {
 
   def main(args: Array[String]): Unit = {
 
-    if (args.length != 2) {
+    if (args.length != 4) {
       System.err.println("params have mistakes")
     }
 
-    var Array(brokers,topics) = args
+    var Array(zkQuorum, group, topics, numThreads) = args
 
     var sparkConf = new SparkConf() //.setAppName("KafkaReceiverWordCount").setMaster("local[2]")
 
     var ssc = new StreamingContext(sparkConf, Seconds(5))
 
-    val kafkaParams = Map[String,String]("metadata.broker.list"->brokers)
+    val topicMap = topics.split(",").map((_, numThreads.toInt)).toMap
 
-    val topicsSet = topics.split(",").toSet
+    val messages = KafkaUtils.createStream(ssc, zkQuorum, group, topicMap)
 
-    //val messages = KafkaUtils.createDirectStream[String,String,StringDecoder,StringDecoder](ssc,kafkaParams,topicsSet)
-
-    //messages.map(_._2).flatMap(_.split(" ")).map((_, 1)).reduceByKey(_ + _).print()
+    messages.map(_._2).count().print()
 
     ssc.start()
     ssc.awaitTermination()
