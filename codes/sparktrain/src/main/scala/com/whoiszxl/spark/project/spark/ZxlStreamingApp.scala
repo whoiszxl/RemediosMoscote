@@ -1,10 +1,13 @@
 package com.whoiszxl.spark.project.spark
 
-import com.whoiszxl.spark.project.entity.ClickLog
+import com.whoiszxl.spark.project.dao.CourseClickCountDao
+import com.whoiszxl.spark.project.entity.{ClickLog, CourseClickCount}
 import com.whoiszxl.spark.project.utils.DataUtils
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.{Seconds, StreamingContext}
+
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by zxlvoid on 2017/12/28 0028.
@@ -42,11 +45,26 @@ object ZxlStreamingApp {
         val courseIdHTML = url.split("/")(2)
         courseId = courseIdHTML.substring(0, courseIdHTML.lastIndexOf(".")).toInt
       }
-      ClickLog(infos(0),DataUtils.parseToMinute(infos(1)),courseId,infos(4).toInt,infos(3))
+      ClickLog(infos(0), DataUtils.parseToMinute(infos(1)), courseId, infos(4).toInt, infos(3))
 
-    }).filter(clickLog => clickLog.courseId!=0)
+    }).filter(clickLog => clickLog.courseId != 0)
 
     cleanData.print()
+
+    //3.统计今天到现在为止的课程访问量
+    cleanData.map(x => {
+      //将日期转换成 20171228_88格式
+      (x.time.substring(0, 8) + "_" + x.courseId, 1)
+    }).reduceByKey(_ + _).foreachRDD(rdd => {
+      rdd.foreachPartition(partitionRecords => {
+        val list = new ListBuffer[CourseClickCount]
+        partitionRecords.foreach(pair => {
+          list.append(CourseClickCount(pair._1, pair._2))
+        })
+        CourseClickCountDao.save(list)
+      })
+    })
+
     ssc.start()
     ssc.awaitTermination()
   }
