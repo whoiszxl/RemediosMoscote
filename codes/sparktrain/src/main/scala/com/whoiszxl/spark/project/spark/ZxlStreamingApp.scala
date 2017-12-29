@@ -1,6 +1,6 @@
 package com.whoiszxl.spark.project.spark
 
-import com.whoiszxl.spark.project.ClickLog
+import com.whoiszxl.spark.project.entity.ClickLog
 import com.whoiszxl.spark.project.utils.DataUtils
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.kafka.KafkaUtils

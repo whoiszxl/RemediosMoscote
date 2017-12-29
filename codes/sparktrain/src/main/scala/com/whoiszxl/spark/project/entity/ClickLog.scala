@@ -1,4 +1,4 @@
-package com.whoiszxl.spark.project
+package com.whoiszxl.spark.project.entity
 
 /**
   * Created by zxlvoid on 2017/12/29 0029.
