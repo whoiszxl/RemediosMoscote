@@ -1,7 +1,7 @@
 package com.whoiszxl.spark.project.spark
 
-import com.whoiszxl.spark.project.dao.CourseClickCountDao
-import com.whoiszxl.spark.project.entity.{ClickLog, CourseClickCount}
+import com.whoiszxl.spark.project.dao.{CourseClickCountDao, CourseSearchClickCountDao}
+import com.whoiszxl.spark.project.entity.{ClickLog, CourseClickCount, CourseSearchClickCount}
 import com.whoiszxl.spark.project.utils.DataUtils
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.kafka.KafkaUtils
@@ -23,7 +23,8 @@ object ZxlStreamingApp {
     }
 
     val Array(zkQuorum, groupId, topics, numThreads) = args
-    val sparkConf = new SparkConf().setAppName("ZxlStreamingApp").setMaster("local[2]")
+    //线上环境需要去掉local[2]
+    val sparkConf = new SparkConf().setAppName("ZxlStreamingApp")//.setMaster("local[2]")
     val ssc = new StreamingContext(sparkConf, Seconds(6))
 
     val topicMap = topics.split(",").map((_, numThreads.toInt)).toMap
@@ -62,6 +63,33 @@ object ZxlStreamingApp {
           list.append(CourseClickCount(pair._1, pair._2))
         })
         CourseClickCountDao.save(list)
+      })
+    })
+
+    //4.将搜索引擎过来的访问量进行统计
+    cleanData.map(x => {
+      /**
+        * https://www.google.com/search?q={query}
+        * ==>
+        * https:/www.google.com/search?q={query}
+        **/
+      val referer = x.referer.replaceAll("//", "/")
+      val splits = referer.split("/")
+      var host = ""
+      if (splits.length > 2) {
+        host = splits(1)
+      }
+
+      (host, x.courseId, x.time)
+    }).filter(_._1 != "").map(x => {
+      (x._3.substring(0, 8) + "_" + x._1 + "_" + x._2, 1)
+    }).reduceByKey(_ + _).foreachRDD(rdd => {
+      rdd.foreachPartition(partitionRecords => {
+        val list = new ListBuffer[CourseSearchClickCount]
+        partitionRecords.foreach(pair => {
+          list.append(CourseSearchClickCount(pair._1, pair._2))
+        })
+        CourseSearchClickCountDao.save(list)
       })
     })
 
