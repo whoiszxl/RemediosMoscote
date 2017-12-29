@@ -1,4 +1,4 @@
-package com.whoiszxl.spark.project.utils;
+package com.whoiszxl.spark.kafka.utils;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.client.HBaseAdmin;

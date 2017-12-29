@@ -1,0 +1,5 @@
+com\whoiszxl\spark\kafka\KafkaProducer.class
+com\whoiszxl\spark\kafka\utils\HBaseUtils.class
+com\whoiszxl\spark\kafka\KafkaClientApp.class
+com\whoiszxl\spark\kafka\KafkaConsumer.class
+com\whoiszxl\spark\kafka\KafkaProperties.class

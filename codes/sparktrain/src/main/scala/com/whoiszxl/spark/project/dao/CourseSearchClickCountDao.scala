@@ -1,7 +1,7 @@
 package com.whoiszxl.spark.project.dao
 
+import com.whoiszxl.spark.kafka.utils.HBaseUtils
 import com.whoiszxl.spark.project.entity.{CourseClickCount, CourseSearchClickCount}
-import com.whoiszxl.spark.project.utils.HBaseUtils
 import org.apache.hadoop.hbase.client.Get
 import org.apache.hadoop.hbase.util.Bytes
 
